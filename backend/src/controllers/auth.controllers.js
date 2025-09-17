@@ -32,15 +32,15 @@ export const signup = async(req,res)=>{
             password: hashedPassword,
         })
 
-        await newUser.save()
+        const savedUser = await newUser.save()
         
-        const token = generateToken(res,newUser._id)
+        const token = generateToken(res, savedUser._id)
         
         res.status(201).json({
-            _id: newUser._id,
-            fullName: newUser.fullName,
-            email: newUser.email,
-            profilePic: newUser.profilePic,
+            _id: savedUser._id,
+            fullName: savedUser.fullName,
+            email: savedUser.email,
+            profilePic: savedUser.profilePic,
             token
         });
 
