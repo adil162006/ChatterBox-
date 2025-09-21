@@ -1,4 +1,4 @@
-import User from "../model/user.js"
+import User from "../model/User.js"
 import bcrypt from "bcryptjs"
 import { generateToken } from "../lib/utils.js"
 import 'dotenv/config';
