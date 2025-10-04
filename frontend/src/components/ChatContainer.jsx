@@ -21,7 +21,11 @@ const ChatContainer  = () => {
   useEffect(()=>{
     getMessagesByUserId(selectedUser._id);
   },[selectedUser,getMessagesByUserId])
-  
+    useEffect(() => {
+    if (messageEndRef.current) {
+      messageEndRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [messages])
   return (
     <>
     <ChatHeader/>
@@ -38,8 +42,8 @@ const ChatContainer  = () => {
                   <div
                     className={`chat-bubble relative ${
                     msg.senderId === authUser._id
-                      ? "bg-cyan-600 text-white"
-                      : "bg-slate-800 text-slate-200"
+                      ? "bg-cyan-600/90 text-white" // Make sure text is white for sender's messages
+                      : "bg-slate-800 text-slate-200" // Light text for received messages
                   }`}
                   >
                     {msg.image && (
@@ -56,6 +60,7 @@ const ChatContainer  = () => {
               </div>
 ))
 }
+        <div ref={messageEndRef}/>
         </div>
       ) : isMessagesLoading ? (<MessagesLoadingSkeleton />): (
         <NoChatHistoryPlaceholder name = {selectedUser.fullName}/>
